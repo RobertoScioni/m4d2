@@ -3,30 +3,30 @@ import React, { Component } from "react"
 import Card from "react-bootstrap/Card"
 import CardColumns from "react-bootstrap/CardColumns"
 import Dropdown from "react-bootstrap/Dropdown"
+import Badge from "react-bootstrap/Badge"
 import scifi from "../json/scifi.json"
 import fantasy from "../json/fantasy.json"
 import horror from "../json/horror.json"
 import romance from "../json/romance.json"
 import history from "../json/history.json"
 
-let books = scifi
 class LastestReleases extends Component {
 	constructor(props) {
 		super(props)
 		let shelves = {
-			scifi: scifi,
-			fantasy: fantasy,
-			horror: horror,
-			romance: romance,
-			history: history,
+			scifi,
+			fantasy,
+			horror,
+			romance,
+			history,
 		}
-		this.state = { shelves: shelves, active: scifi }
+		this.state = { shelves, active: scifi }
 		console.log(this.state)
 	}
 	render() {
 		console.log("scifi", scifi)
 		return (
-			<div>
+			<>
 				<Dropdown>
 					<Dropdown.Toggle variant="danger" id="dropdown-basic">
 						Category
@@ -35,9 +35,9 @@ class LastestReleases extends Component {
 					<Dropdown.Menu>
 						<Dropdown.Item
 							onClick={() =>
-								this.setState(() => {
-									this.state.active = this.state.shelves.scifi
-									return this.state
+								this.setState({
+									shelves: this.state.shelves,
+									active: this.state.shelves.scifi,
 								})
 							}
 						>
@@ -45,9 +45,9 @@ class LastestReleases extends Component {
 						</Dropdown.Item>
 						<Dropdown.Item
 							onClick={() =>
-								this.setState(() => {
-									this.state.active = this.state.shelves.fantasy
-									return this.state
+								this.setState({
+									shelves: this.state.shelves,
+									active: this.state.shelves.fantasy,
 								})
 							}
 						>
@@ -55,9 +55,9 @@ class LastestReleases extends Component {
 						</Dropdown.Item>
 						<Dropdown.Item
 							onClick={() =>
-								this.setState(() => {
-									this.state.active = this.state.shelves.horror
-									return this.state
+								this.setState({
+									shelves: this.state.shelves,
+									active: this.state.shelves.horror,
 								})
 							}
 						>
@@ -65,9 +65,9 @@ class LastestReleases extends Component {
 						</Dropdown.Item>
 						<Dropdown.Item
 							onClick={() =>
-								this.setState(() => {
-									this.state.active = this.state.shelves.history
-									return this.state
+								this.setState({
+									shelves: this.state.shelves,
+									active: this.state.shelves.history,
 								})
 							}
 						>
@@ -75,9 +75,9 @@ class LastestReleases extends Component {
 						</Dropdown.Item>
 						<Dropdown.Item
 							onClick={() =>
-								this.setState(() => {
-									this.state.active = this.state.shelves.romance
-									return this.state
+								this.setState({
+									shelves: this.state.shelves,
+									active: this.state.shelves.romance,
 								})
 							}
 						>
@@ -90,12 +90,17 @@ class LastestReleases extends Component {
 						<Card>
 							<Card.Img variant="top" src={book.img} />
 							<Card.Body>
-								<Card.Title>{book.title}</Card.Title>
+								<Card.Title>
+									{book.title}
+									<Badge pill variant="primary">
+										{book.category}
+									</Badge>
+								</Card.Title>
 							</Card.Body>
 						</Card>
 					))}
 				</CardColumns>
-			</div>
+			</>
 		)
 	}
 }
